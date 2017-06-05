@@ -16,9 +16,8 @@
 <pre>
 <span>./launch.sh</span> (#phone and Telegram code)
 </pre>
-<br>
 <h4> It's Done! Enjoy your bot.
-<br>
+<br><br><br>
 #Lunch in anticrash mod :
 <pre>
 <span>sudo tmux new-session -s script "bash steady.sh -t"</span>
