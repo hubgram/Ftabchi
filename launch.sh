@@ -37,7 +37,7 @@ autolaunch() {
 			Fbot="${oldtgbots%.*}"
 			num="${Fbot/bot-/}"
 			tmux kill-session -t Fbot-"$num"
-			for files in "$THIS_DIR"/.telegram-cli/Fbot-"$num"/downloads ; do
+			for files in "$THIS_DIR"/.telegram-cli/Fbot"$num"/downloads ; do
 				rm -rf $files/*
 			done
 			TMUX= tmux new-session -d -s Fbot-"$num" "bash launch.sh $num"
