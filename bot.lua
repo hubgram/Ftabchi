@@ -156,10 +156,10 @@ function on_msg_receive (msg)
 			elseif text:match("^(!markread) (.*)$") then
 				local matche = text:match("^!markread (.*)$")
 				if matche == "on" then
-					redis:set("botBOT-IDmarkread", "on")
+					redis:set("selfbotBOT-IDmarkread", "on")
 					send_msg(receiver, "Mark read > on", ok_cb, false)
 				elseif matche == "off" then
-					redis:del("botBOT-IDmarkread")
+					redis:del("selfbotBOT-IDmarkread")
 					send_msg(receiver, "Mark read > off", ok_cb, false)
 				end
 			elseif text:match("^(!setname) (.*)") then
@@ -215,6 +215,9 @@ function on_msg_receive (msg)
 !stats
 📈 دریافت آمار ربات
 
+!status
+⚙️ دریافت وضعیت ربات
+
 !addmember
 📌 اضافه کردن کانتکت های ربات به گروه
 
@@ -241,6 +244,14 @@ function on_msg_receive (msg)
 ➖➖➖➖ا➖➖➖➖
 "دانش بدون تکامل اخلاقی خطرناک و نابود کننده است."
 ➖➖➖➖ا➖➖➖➖]]
+				send_msg(receiver, text, ok_cb, false)
+			elseif text:match("^(!status)$") then
+				local join = redis:get("selfbotBOT-IDlink") and "✅" or "⛔️"
+				local add = redis:get("selfbotBOT-IDaddcontact") and "✅" or "⛔️"
+				local msg =  redis:get("selfbotBOT-IDaddcontactpm") and "✅" or "⛔️"
+				local txt =  redis:get("selfbotBOT-IDpm") or "اددی گلم خصوصی پیام بده"
+				local view = redis:get("selfbotBOT-IDmarkread") and "✅" or "⛔️"
+				local text = "⚜️AutoJoin : "..join.."\n👁‍🗨ReadMark : "..view.."\n🔰AutoAdd Sheared Contact : "..add.."\n🌟Sending Message for Sheared Contact : "..msg.."\n📨Sheared Contact Msg: 📍"..txt.." 📍"
 				send_msg(receiver, text, ok_cb, false)
 			elseif text:match("^(!autojoin) (.*)$") then
 				local matche = text:match("^!autojoin (.*)$")
@@ -400,14 +411,14 @@ function on_msg_receive (msg)
 				add_contact(msg.media.phone, ""..(msg.media.first_name or "-").."", ""..(msg.media.last_name or "-").."", ok_cb, false)
 			end
 			if redis:get("selfbotBOT-IDaddcontactpm") then
-				local txt = redis:get("botBOT-IDpm") or "اددی گلم خصوصی پیام بده"
+				local txt = redis:get("selfbotBOT-IDpm") or "اددی گلم خصوصی پیام بده"
 				return reply_msg(msg.id,txt, ok_cb, false)
 			end
 		elseif (msg.media.caption and redis:get("selfbotBOT-IDlink")) then
 				find_link(msg.media.caption)
 		end		
 	end
-	if redis:get("botBOT-IDmarkread") then
+	if redis:get("selfbotBOT-IDmarkread") then
 		mark_read(receiver, ok_cb, false)
 	end
 end
