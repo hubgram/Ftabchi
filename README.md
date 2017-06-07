@@ -20,5 +20,5 @@
 <br><br><br>
 #Launch All bots by one Autolaunch cammand :
 <pre>
-<span>sudo tmux new-session -s "bash launch.sh autolaunch"</span>
+<span>sudo tmux new-session -s Ftabchi "bash launch.sh autolaunch"</span>
 </pre>
